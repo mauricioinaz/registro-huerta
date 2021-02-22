@@ -2,9 +2,10 @@ import { Entypo } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { View } from '../components/Themed';
+import { TextInput } from "react-native";
+import { View, Text } from '../components/Themed';
 
-import Colors from '../constants/Colors';
+import Colors, { colorGreen } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { TabTwoParamList } from '../types';
@@ -72,16 +73,42 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator>
+    <TabTwoStack.Navigator
+      initialRouteName="TabTwoScreen"
+    >
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
         options={{
           headerTitle: 'Registrar Actividad',
+          headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: '#e74154',
+            height: 70
           },
           headerTintColor: '#fff',
+        }}
+      />
+      <TabTwoStack.Screen
+        name="RegistroForma"
+        component={RegistroForm}
+        options={{
+          headerTitle: 'Registro de...',
+          headerStyle: {
+            backgroundColor: colorGreen,
+            height: 70
+          },
+        }}
+      />
+      <TabTwoStack.Screen
+        name="ListadoDeRegistros"
+        component={RegistroList}
+        options={{
+          headerTitle: 'Registro de...',
+          headerStyle: {
+            backgroundColor: colorGreen,
+            height: 70
+          },
         }}
       />
     </TabTwoStack.Navigator>
@@ -97,5 +124,34 @@ function TabThreeNavigator() {
 function TabFourNavigator() {
   return (
     <View><TabBarIcon name="user" color='#ddd' /></View>
+  );
+}
+
+function RegistroForm({route}) {
+  const { tipoRegistro } = route.params;
+  // valores de tipoRegistro
+  // "riego" | "aplicacion" | "cosecha" | "huerta" |
+  return (
+    <View>
+      <Text>Aquí se registra {tipoRegistro}</Text>
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={() => {}}
+        value=''
+      />
+    </View>
+  );
+}
+
+function RegistroList() {
+  return (
+    <View>
+      <Text>cosas...</Text>
+      <Text>cosas...</Text>
+      <Text>cosas...</Text>
+      <Text>cosas...</Text>
+      <Text>cosas...</Text>
+      <Text>cosas...</Text>
+    </View>
   );
 }

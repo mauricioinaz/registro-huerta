@@ -14,4 +14,6 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+  RegistroForma: undefined;
+  ListadoDeRegistros: undefined;
 };

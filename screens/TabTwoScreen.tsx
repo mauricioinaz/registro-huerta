@@ -4,18 +4,32 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import RegistroButton from '../components/RegistroButton';
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <RegistroButton buttonText='Riego' onPress={() => {}}/>
-        <RegistroButton buttonText='Aplicaciones' onPress={() => {}}/>
+        <RegistroButton buttonText='Riego' onPress={() => navigation.navigate('RegistroForma', {
+          tipoRegistro: 'riego'
+        })} />
+        <RegistroButton buttonText='Aplicaciones' onPress={() => navigation.navigate('RegistroForma', {
+          tipoRegistro: 'aplicacion'
+        })} />
       </View>
       <View style={styles.buttonContainer}>
-        <RegistroButton buttonText='Cosecha' onPress={() => {}}/>
-        <RegistroButton buttonText='Actividades de huerta' onPress={() => {}}/>
+        <RegistroButton buttonText='Cosecha' onPress={() => navigation.navigate('RegistroForma', {
+          tipoRegistro: 'cosecha'
+        })} />
+        <RegistroButton buttonText='Actividades de huerta' onPress={() => navigation.navigate('RegistroForma', {
+          tipoRegistro: 'huerta'
+        })} />
       </View>
-      <View style={styles.endContainer}><TouchableOpacity><Text>VER ACTIVIDADES ANTERIORES</Text></TouchableOpacity></View>
+      <View style={styles.endContainer}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ListadoDeRegistros')}
+        >
+          <Text>VER ACTIVIDADES ANTERIORES</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

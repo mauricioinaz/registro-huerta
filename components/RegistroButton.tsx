@@ -4,10 +4,10 @@ import {
   Text,
   TouchableOpacity,
   View,
-  GestureResponderEvent 
+  GestureResponderEvent
 } from "react-native";
 
-// import Colors from '../constants/Colors';
+// import {colorGreen} from '../constants/Colors';
 
 type RegistroButtonProps = {
   buttonText: string,
