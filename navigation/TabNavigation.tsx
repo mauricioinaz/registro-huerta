@@ -80,14 +80,8 @@ function TabTwoNavigator() {
           headerTitle: 'Registrar Actividad',
           headerStyle: {
             backgroundColor: '#e74154',
-            height: 300,
-
           },
           headerTintColor: '#fff',
-          headerTitleStyle: {
-            alignItems: 'flex-start',
-            justifyContent: 'flex-end'
-          }
         }}
       />
     </TabTwoStack.Navigator>

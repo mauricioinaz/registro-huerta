@@ -3,22 +3,16 @@ const tintColorDark = '#fff';
 const colorGreen = '#2cb972';
 export const red = '#e74154';
 
+const colors = {
+  text: tintColorLight,
+  background: '#fff',
+  tint: colorGreen,
+  tabIconDefault: colorGreen,
+  tabIconSelected: tintColorDark,
+  tabBackground: colorGreen
+}
 
 export default {
-  light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-    tabBackground: colorGreen    
-  },
-  dark: {
-    text: tintColorLight,
-    background: '#fff',  
-    tint: colorGreen,
-    tabIconDefault: colorGreen,
-    tabIconSelected: tintColorDark,
-    tabBackground: colorGreen
-  },
+  light: {...colors},
+  dark: {...colors},
 };
