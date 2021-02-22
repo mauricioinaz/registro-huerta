@@ -1,15 +1,21 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import RegistroButton from '../components/RegistroButton';
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <View style={styles.buttonContainer}>
+        <RegistroButton buttonText='Riego' onPress={() => {}}/>
+        <RegistroButton buttonText='Aplicaciones' onPress={() => {}}/>
+      </View>
+      <View style={styles.buttonContainer}>
+        <RegistroButton buttonText='Cosecha' onPress={() => {}}/>
+        <RegistroButton buttonText='Actividades de huerta' onPress={() => {}}/>
+      </View>
+      <View style={styles.endContainer}><TouchableOpacity><Text>VER ACTIVIDADES ANTERIORES</Text></TouchableOpacity></View>
     </View>
   );
 }
@@ -20,14 +26,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  buttonContainer: {
+    flex: 2,
+    flexDirection: 'row'
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  endContainer: {
+    flex: 1
   },
 });
