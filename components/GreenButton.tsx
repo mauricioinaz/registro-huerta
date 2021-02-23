@@ -45,8 +45,14 @@ const styles = StyleSheet.create({
     backgroundColor: colorGreen,
     justifyContent: 'center',
     borderRadius: 35,
-    // shadowColor: '#ccc',
-    // shadowOffset: {width: 5, height: 5}
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
   textButton: {
     color: '#fff',
