@@ -1,9 +1,9 @@
 import * as React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   StyleSheet,
   ScrollView,
   Platform,
-  Button,
   TouchableOpacity
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
@@ -25,7 +25,20 @@ type FormData = {
 export default function RegistroForm({route}) {
   const { tipoRegistro } = route.params;
   const { control, handleSubmit, errors } = useForm<FormData>();
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit = (registroData: FormData) => {
+    storeData(registroData)
+  }
+
+  const storeData = async (registroData: FormData) => {
+    try {
+      let storedRegistros = await AsyncStorage.getItem('@lista_registros');
+      const registrosArray = (storedRegistros !== null) ? JSON.parse(storedRegistros) : []
+      registrosArray.push(registroData)
+      await AsyncStorage.setItem('@lista_registros', JSON.stringify(registrosArray));
+    } catch (e) {
+      // saving error
+    }
+  }
 
 
   // TEMPORAl
@@ -135,6 +148,7 @@ export default function RegistroForm({route}) {
                 onBlur={onBlur}
                 onChangeText={value => onChange(value)}
                 value={value}
+                keyboardType='number-pad'
               />
             )}
             name="tiempRiego"
