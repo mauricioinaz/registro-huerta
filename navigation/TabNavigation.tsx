@@ -2,12 +2,12 @@ import { Entypo } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { TextInput } from "react-native";
 import { View, Text } from '../components/Themed';
 
 import Colors, { colorGreen } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import RegistroForm from '../screens/RegistroForm';
 import { TabTwoParamList } from '../types';
 
 const Tab = createMaterialTopTabNavigator();
@@ -93,9 +93,9 @@ function TabTwoNavigator() {
         name="RegistroForma"
         component={RegistroForm}
         options={{
-          headerTitle: 'Registro de...',
+          headerTitle: 'Registro',
           headerStyle: {
-            backgroundColor: colorGreen,
+            backgroundColor: '#2cb972',
             height: 70
           },
         }}
@@ -124,22 +124,6 @@ function TabThreeNavigator() {
 function TabFourNavigator() {
   return (
     <View><TabBarIcon name="user" color='#ddd' /></View>
-  );
-}
-
-function RegistroForm({route}) {
-  const { tipoRegistro } = route.params;
-  // valores de tipoRegistro
-  // "riego" | "aplicacion" | "cosecha" | "huerta" |
-  return (
-    <View>
-      <Text>Aquí se registra {tipoRegistro}</Text>
-      <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={() => {}}
-        value=''
-      />
-    </View>
   );
 }
 
