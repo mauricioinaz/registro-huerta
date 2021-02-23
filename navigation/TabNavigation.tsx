@@ -8,6 +8,7 @@ import Colors, { colorGreen } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import RegistroForm from '../screens/RegistroForm';
+import RegistroList from '../screens/RegistroList';
 import { TabTwoParamList } from '../types';
 
 const Tab = createMaterialTopTabNavigator();
@@ -65,7 +66,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Entypo>['name']; 
 
 function TabOneNavigator() {
   return (
-    <View><Entypo size={25} name="home" color='#ddd' /></View>
+    <View><Entypo size={25} name="home" /></View>
   );
 }
 
@@ -117,25 +118,12 @@ function TabTwoNavigator() {
 
 function TabThreeNavigator() {
   return (
-    <View><Entypo size={25} name="phone" color='#ddd' /></View>
+    <View><Entypo size={25} name="phone" /></View>
   );
 }
 
 function TabFourNavigator() {
   return (
-    <View><TabBarIcon name="user" color='#ddd' /></View>
-  );
-}
-
-function RegistroList() {
-  return (
-    <View>
-      <Text>cosas...</Text>
-      <Text>cosas...</Text>
-      <Text>cosas...</Text>
-      <Text>cosas...</Text>
-      <Text>cosas...</Text>
-      <Text>cosas...</Text>
-    </View>
+    <View><TabBarIcon name="user" /></View>
   );
 }

@@ -1,29 +1,11 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View } from '../components/Themed';
 import RegistroButton from '../components/RegistroButton';
 import GreenButton from '../components/GreenButton';
 
 export default function TabTwoScreen({navigation}) {
-  React.useEffect(
-    () => {
-      getData()
-    }
-    ,[])
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@lista_registros')
-      if(value !== null) {
-        console.log(value)
-      } else {
-        console.log('VACIA')
-      }
-    } catch(e) {
-      console.log(e)
-    }
-  }
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>

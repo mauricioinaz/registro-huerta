@@ -28,7 +28,11 @@ export default function RegistroForm({route, navigation}) {
   const { tipoRegistro } = route.params;
   const { control, handleSubmit, errors, reset } = useForm<FormData>();
   const onSubmit = (registroData: FormData) => {
-    storeData(registroData)
+    storeData({
+      ...registroData,
+      tipo: tipoRegistro,
+      fecha: date
+    })
   }
 
   const storeData = async (registroData: FormData) => {
