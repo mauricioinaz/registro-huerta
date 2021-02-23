@@ -1,78 +1,189 @@
 import * as React from 'react';
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  ScrollView,
+  Platform,
+  Button,
+  TouchableOpacity
+} from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text } from '../components/Themed';
 import RegistroTextInput from '../components/RegistroTextInput';
 import GreenButton from '../components/GreenButton';
 
+type FormData = {
+  fecha: string;  // TODO: actualizar a fecha
+  huerta: string;
+  variedad: string;
+  superficie: string;
+  tiempRiego: string;
+  responsable: string;
+  encargadx: string;
+};
 
 export default function RegistroForm({route}) {
   const { tipoRegistro } = route.params;
+  const { control, handleSubmit, errors } = useForm<FormData>();
+  const onSubmit = (data: FormData) => console.log(data);
+
+
+  // TEMPORAl
+  const [date, setDate] = React.useState(new Date());
+  const [show, setShow] = React.useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    console.log(currentDate)
+  };
+
+  const showDatepicker = () => {
+    setShow(true);
+  };
+
   // valores de tipoRegistro
   // "riego" | "aplicacion" | "cosecha" | "huerta" |
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text>Datos de {tipoRegistro}</Text>
       <View style={styles.row}>
         <View style={styles.input}>
           <Text>FECHA</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
-          />
+          <View>
+            <TouchableOpacity
+              onPress={showDatepicker}
+            >
+              <Text>{date.toLocaleDateString()}</Text>
+            </TouchableOpacity>
+          </View>
+          {show && (
+             <DateTimePicker
+               testID="dateTimePicker"
+               value={date}
+               mode='date'
+               is24Hour={true}
+               display="default"
+               onChange={onChange}
+             />
+           )}
         </View>
         <View style={styles.input}>
           <Text>SECTOR DE HUERTA</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="huerta"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.huerta && <Text>Campo requerido</Text>}
         </View>
       </View>
       <View style={styles.row}>
         <View style={styles.input}>
           <Text>VARIEDAD</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="variedad"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.variedad && <Text>Campo requerido</Text>}
         </View>
         <View style={styles.input}>
           <Text>SUPERFICIE</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                keyboardType='number-pad'
+              />
+            )}
+            name="superficie"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.superficie && <Text>Campo requerido</Text>}
         </View>
       </View>
       <View style={styles.row}>
         <View style={styles.input}>
           <Text>TIEMPO RIEGO</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="tiempRiego"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.tiempRiego && <Text>Campo requerido</Text>}
         </View>
       </View>
       <View style={styles.row}>
         <View style={styles.input}>
           <Text>PERSONA RESPONSABLE</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="responsable"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.responsable && <Text>Campo requerido</Text>}
         </View>
       </View>
       <View style={styles.row}>
         <View style={styles.input}>
           <Text>TRABAJADOR ENCARGADO</Text>
-          <RegistroTextInput
-            onChangeText={() => {}}
-            value=''
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <RegistroTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              />
+            )}
+            name="encargadx"
+            rules={{ required: true }}
+            defaultValue=""
           />
+          {errors.encargadx && <Text>Campo requerido</Text>}
         </View>
       </View>
-      <GreenButton buttonText="ACEPTAR" onPress={()=>{}} />
-    </View>
+      <GreenButton buttonText="ACEPTAR" onPress={handleSubmit(onSubmit)} />
+    </View></ScrollView>
   );
 }
 
