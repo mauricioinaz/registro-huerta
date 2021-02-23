@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet } from "react-native";
 import { View, Text } from '../components/Themed';
 import RegistroTextInput from '../components/RegistroTextInput';
+import GreenButton from '../components/GreenButton';
 
 
 export default function RegistroForm({route}) {
@@ -70,6 +71,7 @@ export default function RegistroForm({route}) {
           />
         </View>
       </View>
+      <GreenButton buttonText="ACEPTAR" onPress={()=>{}} />
     </View>
   );
 }

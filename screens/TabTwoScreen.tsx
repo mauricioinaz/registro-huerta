@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import RegistroButton from '../components/RegistroButton';
+import GreenButton from '../components/GreenButton';
 
 export default function TabTwoScreen({navigation}) {
   return (
@@ -24,11 +25,10 @@ export default function TabTwoScreen({navigation}) {
         })} />
       </View>
       <View style={styles.endContainer}>
-        <TouchableOpacity
+        <GreenButton
+          buttonText="VER ACTIVIDADES ANTERIORES"
           onPress={() => navigation.navigate('ListadoDeRegistros')}
-        >
-          <Text>VER ACTIVIDADES ANTERIORES</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
