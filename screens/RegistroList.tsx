@@ -72,7 +72,7 @@ export default function RegistroList() {
 
   const deleteItemById = () => {
     if (itemToDelete) {
-      const registrosFiltered = registros.filter(item => item.huerta !== itemToDelete)
+      const registrosFiltered = registros.filter(item => item.id !== itemToDelete)
       console.log(`itemToDelete ${itemToDelete}`)
       console.log(`registros length ${registros.length}`)
       console.log(`registrosFiltered length ${registrosFiltered.length}`)
@@ -92,20 +92,20 @@ export default function RegistroList() {
 
   const renderItem = ({ item, index }) => {
     const backColor = itemBackColors[index % itemBackColors.length]
-    // // TODO: cambiar item.huerta por item.id!!!!
     return (
       <Item
+        key={item.id}
         tipo={item.tipo}
         fecha={item.fecha}
         backColor={backColor}
-        deleteItem={() => openDeletetingModal(item.huerta)}
+        deleteItem={() => openDeletetingModal(item.id)}
       />
     )};
 
-    const cancelModal = () => {
-      setModalVisible(false);
-      setitemToDelete(null)
-    }
+  const cancelModal = () => {
+    setModalVisible(false);
+    setitemToDelete(null)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -133,7 +133,7 @@ export default function RegistroList() {
       <FlatList
         data={registros}
         renderItem={renderItem}
-        keyExtractor={item => item.huerta}
+        keyExtractor={item => item.id}
         style={styles.listContainer}
       />
     </SafeAreaView>

@@ -22,23 +22,27 @@ import {
 } from '../constants/Colors';
 
 type FormData = {
-  fecha: string;  // TODO: actualizar a fecha
+  fecha: Date;  // TODO: actualizar a fecha
   huerta: string;
   variedad: string;
   superficie: string;
   tiempRiego: string;
   responsable: string;
   encargadx: string;
+  tipo: string;
+  id: string;
 };
 
 export default function RegistroForm({route, navigation}) {
   const { tipoRegistro } = route.params;
   const { control, handleSubmit, errors, reset } = useForm<FormData>();
   const onSubmit = (registroData: FormData) => {
+    // Fake id generation
     storeData({
       ...registroData,
       tipo: tipoRegistro,
-      fecha: date
+      fecha: date,
+      id: '_' + Math.random().toString(36).substr(2, 9)
     })
   }
 
