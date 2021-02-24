@@ -8,15 +8,14 @@ import {
 } from "react-native";;
 import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text } from '../components/Themed';
-import RegistroTextInput from '../components/RegistroTextInput';
 import GreenButton from '../components/GreenButton';
+import Input from '../components/Input';
 import {
   darkGreen,
   colorWhite,
-  darkRed,
   colorBlack,
   tintColorGr
 } from '../constants/Colors';
@@ -33,30 +32,14 @@ type FormData = {
   id: string;
 };
 
-export default function RegistroForm({route, navigation}) {
-  const { tipoRegistro } = route.params;
-  const { control, handleSubmit, errors, reset } = useForm<FormData>();
-  const onSubmit = (registroData: FormData) => {
-    // Fake id generation
-    storeData({
-      ...registroData,
-      tipo: tipoRegistro,
-      fecha: date,
-      id: '_' + Math.random().toString(36).substr(2, 9)
-    })
-  }
+type acceptedRegistros = { tipoRegistro: "Riego" | "Aplicacion" | "Cosecha" | "Huerta" ; }
 
-  const storeData = async (registroData: FormData) => {
-    try {
-      let storedRegistros = await AsyncStorage.getItem('@lista_registros');
-      const registrosArray = (storedRegistros !== null) ? JSON.parse(storedRegistros) : []
-      registrosArray.push(registroData)
-      await AsyncStorage.setItem('@lista_registros', JSON.stringify(registrosArray));
-      setModalVisible(true)
-    } catch (e) {
-      // saving error
-    }
-  }
+type RegistroFormTypes = {route: React.ReactNode, navigation: React.ReactNode}
+
+export default function RegistroForm({route, navigation} : RegistroFormTypes ) {
+
+  const { tipoRegistro } : acceptedRegistros = route.params;
+  const { control, handleSubmit, errors, reset } = useForm<FormData>();
 
   //MODAL
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -80,30 +63,51 @@ export default function RegistroForm({route, navigation}) {
     navigation.goBack()
   }
 
-  // valores de tipoRegistro
-  // "Riego" | "Aplicacion" | "Cosecha" | "Huerta" |
+  // SUBMITTING FORM
+  const onSubmit = (registroData: FormData) => {
+    storeData({
+      ...registroData,
+      tipo: tipoRegistro,
+      fecha: date,
+      // Fake id generation
+      id: '_' + Math.random().toString(36).substr(2, 9)
+    })
+  }
+
+  const storeData = async (registroData: FormData) => {
+    try {
+      let storedRegistros = await AsyncStorage.getItem('@lista_registros');
+      const registrosArray = (storedRegistros !== null) ? JSON.parse(storedRegistros) : []
+      registrosArray.push(registroData)
+      await AsyncStorage.setItem('@lista_registros', JSON.stringify(registrosArray));
+      setModalVisible(true)
+    } catch (e) {
+      // error logic
+    }
+  }
+
   return (
     <ScrollView>
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={onEndRegistration}
-    >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Entypo size={120} name="save" color={darkGreen} />
-          <Text style={styles.modalTextBig}>Registro Guardado</Text>
-          <Text style={styles.modalText}>Tu actividad se ha guardado correctamente</Text>
-          <View style={styles.modalButtonContainer}>
-            <GreenButton
-              buttonText="FINALIZAR"
-              onPress={onEndRegistration}
-            />
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={onEndRegistration}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Entypo size={120} name="save" color={darkGreen} />
+            <Text style={styles.modalTextBig}>Registro Guardado</Text>
+            <Text style={styles.modalText}>Tu actividad se ha guardado correctamente</Text>
+            <View style={styles.modalButtonContainer}>
+              <GreenButton
+                buttonText="FINALIZAR"
+                onPress={onEndRegistration}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
       <View style={styles.container}>
         <Text style={styles.title}>Datos de la actividad</Text>
         <View style={styles.row}>
@@ -127,124 +131,52 @@ export default function RegistroForm({route, navigation}) {
                />
              )}
           </View>
-          <View style={styles.input}>
-            <Text>SECTOR DE HUERTA</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="huerta"
-              rules={{ required: true }}
-              defaultValue=""
-            />
-            {errors.huerta && <Text style={styles.error}>Campo requerido</Text>}
-          </View>
+          <Input
+            label='SECTOR DE HUERTA'
+            control={control}
+            name="huerta"
+            error={errors.huerta}
+          />
         </View>
         <View style={styles.row}>
-          <View style={styles.input}>
-            <Text>VARIEDAD</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="variedad"
-              rules={{ required: true }}
-              defaultValue=""
-            />
-            {errors.variedad && <Text style={styles.error}>Campo requerido</Text>}
-          </View>
-          <View style={styles.input}>
-            <Text>SUPERFICIE</Text>
-            <View style={styles.inputContainer}>
-              <Controller
-                control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <RegistroTextInput
-                    onBlur={onBlur}
-                    onChangeText={value => onChange(value)}
-                    value={value}
-                    keyboardType='number-pad'
-                  />
-                )}
-                name="superficie"
-                rules={{ required: true }}
-                defaultValue=""
-              />
-              <Text style={styles.helpText}>ha</Text>
-            </View>
-            {errors.superficie && <Text style={styles.error}>Campo requerido</Text>}
-          </View>
+          <Input
+            label='VARIEDAD'
+            control={control}
+            name="variedad"
+            error={errors.variedad}
+          />
+          <Input
+            label='SUPERFICIE'
+            control={control}
+            name="superficie"
+            error={errors.superficie}
+            numberHelpText="ha"
+          />
         </View>
         <View style={styles.row}>
-          <View style={styles.input}>
-            <Text>TIEMPO RIEGO</Text>
-            <View style={styles.inputContainer}>
-              <Controller
-                control={control}
-                render={({ onChange, onBlur, value }) => (
-                  <RegistroTextInput
-                    onBlur={onBlur}
-                    onChangeText={value => onChange(value)}
-                    value={value}
-                    keyboardType='number-pad'
-                  />
-                )}
-                name="tiempRiego"
-                rules={{ required: true }}
-                defaultValue=""
-              />
-              {errors.tiempRiego && <Text style={styles.error}>Campo requerido</Text>}
-              <Text style={styles.helpText}>horas</Text>
-            </View>
-          </View>
+          <Input
+            label='TIEMPO RIEGO'
+            control={control}
+            name="tiempRiego"
+            error={errors.tiempRiego}
+            numberHelpText="horas"
+          />
         </View>
         <View style={styles.row}>
-          <View style={styles.input}>
-            <Text>PERSONA RESPONSABLE</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="responsable"
-              rules={{ required: true }}
-              defaultValue=""
-            />
-            {errors.responsable && <Text style={styles.error}>Campo requerido</Text>}
-          </View>
+          <Input
+            label='PERSONA RESPONSABLE'
+            control={control}
+            name="responsable"
+            error={errors.responsable}
+          />
         </View>
         <View style={styles.row}>
-          <View style={styles.input}>
-            <Text>TRABAJADOR ENCARGADO</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="encargadx"
-              rules={{ required: true }}
-              defaultValue=""
-            />
-            {errors.encargadx && <Text style={styles.error}>Campo requerido</Text>}
-          </View>
+          <Input
+            label='TRABAJADOR ENCARGADO'
+            control={control}
+            name="encargadx"
+            error={errors.encargadx}
+          />
         </View>
         <GreenButton buttonText="ACEPTAR" onPress={handleSubmit(onSubmit)} />
       </View>
@@ -273,13 +205,6 @@ const styles = StyleSheet.create({
     height: 90,
     padding: 10,
     justifyContent: 'space-between'
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end'
-  },
-  helpText: {
-    marginLeft: 8
   },
   centeredView: {
     flex: 1,
@@ -326,10 +251,6 @@ const styles = StyleSheet.create({
   },
   modalButtonContainer: {
     height: 100
-  },
-  error: {
-    color: darkRed,
-    fontSize: 10
   },
   datePicker: {
     flex: 1,

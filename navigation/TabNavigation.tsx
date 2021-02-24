@@ -17,6 +17,7 @@ import RegistroForm from '../screens/RegistroForm';
 import RegistroList from '../screens/RegistroList';
 import { TabTwoParamList } from '../types';
 
+// GENERAL NAVIGATION OF APP
 const Tab = createMaterialTopTabNavigator();
 
 export default function TabNavigation() {
@@ -70,12 +71,15 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Entypo>['name']; 
   return <Entypo size={25} {...props} />;
 }
 
+// SPECIFIC SCREENS FOR EACH TAB
+// TAB ONE - INICIO
 function TabOneNavigator() {
   return (
     <View style={styles.container}><Entypo size={75} name="home" /></View>
   );
 }
 
+// TAB ONE - REGISTROS
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
@@ -121,12 +125,14 @@ function TabTwoNavigator() {
   );
 }
 
+// TAB TRHEE - AYUDA
 function TabThreeNavigator() {
   return (
     <View style={styles.container}><Entypo size={75} name="phone" /></View>
   );
 }
 
+// TAB FOUR - PERFIL
 function TabFourNavigator() {
   return (
     <View style={styles.container}><Entypo size={75} name="user" /></View>

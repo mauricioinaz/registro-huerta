@@ -41,11 +41,13 @@ export default function RegistroList() {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [itemToDelete, setitemToDelete] = React.useState(null);
 
+  // Initially load Registros
   React.useEffect(
     () => {
       getData()
     }
     ,[])
+
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@lista_registros')
@@ -85,7 +87,7 @@ export default function RegistroList() {
     setModalVisible(false)
   }
 
-  const openDeletetingModal = id => {
+  const openDeletetingModal = (id : string) => {
     setModalVisible(true)
     setitemToDelete(id)
   }

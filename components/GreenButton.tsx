@@ -6,8 +6,8 @@ import {
   View,
   GestureResponderEvent
 } from "react-native";
+import { colorGreen, colorBlack, colorWhite } from '../constants/Colors';
 
-import { colorGreen } from '../constants/Colors';
 
 type RegistroButtonProps = {
   buttonText: string,
@@ -15,7 +15,6 @@ type RegistroButtonProps = {
 }
 
 export default function GreenButton({ buttonText, onPress}: RegistroButtonProps) {
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -27,7 +26,6 @@ export default function GreenButton({ buttonText, onPress}: RegistroButtonProps)
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorGreen,
     justifyContent: 'center',
     borderRadius: 35,
-    shadowColor: "#000",
+    shadowColor: colorBlack,
     shadowOffset: {
       width: 0,
       height: 2
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   textButton: {
-    color: '#fff',
+    color: colorWhite,
     fontSize: 18,
     padding: 0,
     fontWeight: 'bold',

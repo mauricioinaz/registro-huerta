@@ -3,17 +3,9 @@ import {
   StyleSheet,
   TextInput
 } from "react-native";
-
-// import {colorGreen} from '../constants/Colors';
-
-// type RegistroTextInputProps = {
-//   label: string,
-//   buttonText: string,
-//   onPress: () => void
-// }
+import { colorBlack } from '../constants/Colors';
 
 export default function RegistroTextInput({ ...allProps}) {
-
   return (
     <TextInput
       style={styles.input}
@@ -26,7 +18,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#000',
+    borderBottomColor: colorBlack,
     height: 40
   }
 });

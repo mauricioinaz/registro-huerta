@@ -8,7 +8,7 @@ import {
   Image,
   ImageSourcePropType
 } from "react-native";
-// import {colorGreen} from '../constants/Colors';
+import { tintColorGr } from '../constants/Colors';
 
 type RegistroButtonProps = {
   buttonText: string,
@@ -17,7 +17,6 @@ type RegistroButtonProps = {
 }
 
 export default function RegistroButton({ buttonText, onPress, image}: RegistroButtonProps) {
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -56,6 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginTop: 10,
-    color: '#505050'
+    color: tintColorGr
   }
 });
