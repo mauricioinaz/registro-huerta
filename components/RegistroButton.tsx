@@ -4,17 +4,19 @@ import {
   Text,
   TouchableOpacity,
   View,
-  GestureResponderEvent
+  GestureResponderEvent,
+  Image,
+  ImageSourcePropType
 } from "react-native";
-
 // import {colorGreen} from '../constants/Colors';
 
 type RegistroButtonProps = {
   buttonText: string,
-  onPress: (event: GestureResponderEvent) => void
+  onPress: (event: GestureResponderEvent) => void,
+  image: ImageSourcePropType
 }
 
-export default function RegistroButton({ buttonText, onPress}: RegistroButtonProps) {
+export default function RegistroButton({ buttonText, onPress, image}: RegistroButtonProps) {
 
   return (
     <View style={styles.container}>
@@ -22,7 +24,11 @@ export default function RegistroButton({ buttonText, onPress}: RegistroButtonPro
         style={styles.button}
         onPress={onPress}
       >
-        <Text>{buttonText}</Text>
+        <Image
+          style={styles.logo}
+          source={image}
+        />
+        <Text style={styles.text}>{buttonText}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -36,11 +42,20 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "transparent",
     padding: 10
   },
   countContainer: {
     alignItems: "center",
     padding: 10
+  },
+  logo: {
+
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#505050'
   }
 });

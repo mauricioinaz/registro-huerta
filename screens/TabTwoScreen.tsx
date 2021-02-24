@@ -4,25 +4,45 @@ import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
 import RegistroButton from '../components/RegistroButton';
 import GreenButton from '../components/GreenButton';
+import huerta from '../assets/images/huerta.png'
+import cosecha from '../assets/images/cosecha.png'
+import riego from '../assets/images/riego.png'
+import aplicaciones from '../assets/images/aplicaciones.png'
 
 export default function TabTwoScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <RegistroButton buttonText='Riego' onPress={() => navigation.navigate('RegistroForma', {
-          tipoRegistro: 'riego'
-        })} />
-        <RegistroButton buttonText='Aplicaciones' onPress={() => navigation.navigate('RegistroForma', {
-          tipoRegistro: 'aplicacion'
-        })} />
+        <RegistroButton
+          buttonText='Riego'
+          onPress={() => navigation.navigate('RegistroForma', {
+            tipoRegistro: 'riego'
+          })}
+          image={riego}
+         />
+        <RegistroButton
+          buttonText='Aplicaciones'
+          onPress={() => navigation.navigate('RegistroForma', {
+            tipoRegistro: 'aplicacion'
+          })}
+          image={aplicaciones}
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <RegistroButton buttonText='Cosecha' onPress={() => navigation.navigate('RegistroForma', {
-          tipoRegistro: 'cosecha'
-        })} />
-        <RegistroButton buttonText='Actividades de huerta' onPress={() => navigation.navigate('RegistroForma', {
-          tipoRegistro: 'huerta'
-        })} />
+        <RegistroButton
+          buttonText='Cosecha'
+          onPress={() => navigation.navigate('RegistroForma', {
+            tipoRegistro: 'cosecha'
+          })}
+          image={cosecha}
+        />
+        <RegistroButton
+          buttonText='Actividades de huerta'
+          onPress={() => navigation.navigate('RegistroForma', {
+            tipoRegistro: 'huerta'
+          })}
+          image={huerta}
+        />
       </View>
       <View style={styles.endContainer}>
         <GreenButton
@@ -39,6 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20
   },
   buttonContainer: {
     flex: 2,
