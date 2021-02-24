@@ -2,7 +2,8 @@ import { Entypo } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { View, Text } from '../components/Themed';
+import { StyleSheet } from 'react-native';
+import { View } from '../components/Themed';
 
 import Colors, { colorGreen } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -66,7 +67,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Entypo>['name']; 
 
 function TabOneNavigator() {
   return (
-    <View><Entypo size={25} name="home" /></View>
+    <View style={styles.container}><Entypo size={75} name="home" /></View>
   );
 }
 
@@ -105,7 +106,7 @@ function TabTwoNavigator() {
         name="ListadoDeRegistros"
         component={RegistroList}
         options={{
-          headerTitle: 'Registro de...',
+          headerTitle: 'Actividades Realizadas',
           headerStyle: {
             backgroundColor: colorGreen,
             height: 70
@@ -118,12 +119,21 @@ function TabTwoNavigator() {
 
 function TabThreeNavigator() {
   return (
-    <View><Entypo size={25} name="phone" /></View>
+    <View style={styles.container}><Entypo size={75} name="phone" /></View>
   );
 }
 
 function TabFourNavigator() {
   return (
-    <View><TabBarIcon name="user" /></View>
+    <View style={styles.container}><Entypo size={75} name="user" /></View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }}
+)
