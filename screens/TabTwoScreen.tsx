@@ -16,14 +16,14 @@ export default function TabTwoScreen({navigation}) {
         <RegistroButton
           buttonText='Riego'
           onPress={() => navigation.navigate('RegistroForma', {
-            tipoRegistro: 'riego'
+            tipoRegistro: 'Riego'
           })}
           image={riego}
          />
         <RegistroButton
           buttonText='Aplicaciones'
           onPress={() => navigation.navigate('RegistroForma', {
-            tipoRegistro: 'aplicacion'
+            tipoRegistro: 'Aplicación'
           })}
           image={aplicaciones}
         />
@@ -32,14 +32,14 @@ export default function TabTwoScreen({navigation}) {
         <RegistroButton
           buttonText='Cosecha'
           onPress={() => navigation.navigate('RegistroForma', {
-            tipoRegistro: 'cosecha'
+            tipoRegistro: 'Cosecha'
           })}
           image={cosecha}
         />
         <RegistroButton
           buttonText='Actividades de huerta'
           onPress={() => navigation.navigate('RegistroForma', {
-            tipoRegistro: 'huerta'
+            tipoRegistro: 'Huerta'
           })}
           image={huerta}
         />
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20
+    padding: 20,
   },
   buttonContainer: {
     flex: 2,

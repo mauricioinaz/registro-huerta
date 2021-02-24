@@ -5,7 +5,12 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from '../components/Themed';
 
-import Colors, { colorGreen } from '../constants/Colors';
+import Colors, {
+  colorGreen,
+  colorRed,
+  colorWhite,
+  darkGreen
+ } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import RegistroForm from '../screens/RegistroForm';
@@ -23,7 +28,7 @@ export default function TabNavigation() {
         showIcon: true,
         labelStyle: { fontSize: 12 },
         tabStyle: { width: 100, height: 120, justifyContent: 'flex-end' },
-        indicatorStyle: { backgroundColor: '#017225' },
+        indicatorStyle: { backgroundColor: darkGreen },
         style: {
           backgroundColor: Colors[colorScheme].tabBackground
         },
@@ -85,22 +90,21 @@ function TabTwoNavigator() {
           headerTitle: 'Registrar Actividad',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#e74154',
-            height: 70
+            backgroundColor: colorRed
           },
-          headerTintColor: '#fff',
+          headerTintColor: colorWhite,
         }}
       />
       <TabTwoStack.Screen
         name="RegistroForma"
         component={RegistroForm}
-        options={{
-          headerTitle: 'Registro',
+        options={({ route }) => ({
+          headerTitle: 'Registro de '+ route.params.tipoRegistro,
           headerStyle: {
-            backgroundColor: '#2cb972',
+            backgroundColor: colorGreen,
             height: 70
           },
-        }}
+        })}
       />
       <TabTwoStack.Screen
         name="ListadoDeRegistros"
@@ -132,7 +136,7 @@ function TabFourNavigator() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colorWhite,
     alignItems: 'center',
     justifyContent: 'center'
   }}

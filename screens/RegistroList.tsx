@@ -10,8 +10,17 @@ import {
   StyleSheet,
   Modal
 } from 'react-native';
+import {
+  lightGreen,
+  darkRed,
+  colorRed,
+  colorWhite,
+  colorBlack,
+  tintColorGr,
+  colorGray
+} from '../constants/Colors';
 
-const itemBackColors = ['#ebf6f1', '#fff']
+const itemBackColors = [lightGreen, colorWhite]
 
 const Item = ({ tipo, fecha, backColor, deleteItem }) => {
   const date = new Date(fecha)
@@ -108,7 +117,7 @@ export default function RegistroList() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Entypo size={80} name="circle-with-cross" color='#f54141' />
+            <Entypo size={80} name="circle-with-cross" color={darkRed} />
             <Text style={styles.modalTextBig}>¿Confirmas que deseas borrar el registro?</Text>
             <View style={styles.modalButtonContainer}>
               <TouchableOpacity style={styles.confirmDelete} onPress={deleteItemById}>
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: 5,
-    shadowColor: "#000",
+    shadowColor: colorWhite,
     shadowOffset: {
       width: 0,
       height: 2
@@ -164,14 +173,14 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 15,
-    backgroundColor: '#fff',
+    backgroundColor: colorWhite,
 
   },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
     fontSize: 20,
-    color: '#505050'
+    color: tintColorGr
   },
   modalTextBig: {
     marginBottom: 15,
@@ -197,7 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: colorBlack,
     shadowOffset: {
       width: 0,
       height: 2
@@ -207,13 +216,13 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   confirmDelete: {
-    backgroundColor: '#f54141',
+    backgroundColor: colorRed,
     padding: 20,
     width: 120,
     borderRadius: 8
   },
   cancelDelete: {
-    backgroundColor: '#b0acac',
+    backgroundColor: colorGray,
     padding: 20,
     width: 120,
     alignItems: 'center',

@@ -13,7 +13,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text } from '../components/Themed';
 import RegistroTextInput from '../components/RegistroTextInput';
 import GreenButton from '../components/GreenButton';
-import { colorGreen } from '../constants/Colors';
+import {
+  darkGreen,
+  colorWhite,
+  darkRed,
+  colorBlack,
+  tintColorGr
+} from '../constants/Colors';
 
 type FormData = {
   fecha: string;  // TODO: actualizar a fecha
@@ -71,7 +77,7 @@ export default function RegistroForm({route, navigation}) {
   }
 
   // valores de tipoRegistro
-  // "riego" | "aplicacion" | "cosecha" | "huerta" |
+  // "Riego" | "Aplicacion" | "Cosecha" | "Huerta" |
   return (
     <ScrollView>
     <Modal
@@ -82,7 +88,7 @@ export default function RegistroForm({route, navigation}) {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Entypo size={120} name="save" color='#017225' />
+          <Entypo size={120} name="save" color={darkGreen} />
           <Text style={styles.modalTextBig}>Registro Guardado</Text>
           <Text style={styles.modalText}>Tu actividad se ha guardado correctamente</Text>
           <View style={styles.modalButtonContainer}>
@@ -95,7 +101,7 @@ export default function RegistroForm({route, navigation}) {
       </View>
     </Modal>
       <View style={styles.container}>
-        <Text>Datos de {tipoRegistro}</Text>
+        <Text style={styles.title}>Datos de la actividad</Text>
         <View style={styles.row}>
           <View style={styles.input}>
             <Text>FECHA</Text>
@@ -155,41 +161,47 @@ export default function RegistroForm({route, navigation}) {
           </View>
           <View style={styles.input}>
             <Text>SUPERFICIE</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                  keyboardType='number-pad'
-                />
-              )}
-              name="superficie"
-              rules={{ required: true }}
-              defaultValue=""
-            />
+            <View style={styles.inputContainer}>
+              <Controller
+                control={control}
+                render={({ onChange, onBlur, value }) => (
+                  <RegistroTextInput
+                    onBlur={onBlur}
+                    onChangeText={value => onChange(value)}
+                    value={value}
+                    keyboardType='number-pad'
+                  />
+                )}
+                name="superficie"
+                rules={{ required: true }}
+                defaultValue=""
+              />
+              <Text style={styles.helpText}>ha</Text>
+            </View>
             {errors.superficie && <Text style={styles.error}>Campo requerido</Text>}
           </View>
         </View>
         <View style={styles.row}>
           <View style={styles.input}>
             <Text>TIEMPO RIEGO</Text>
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value }) => (
-                <RegistroTextInput
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                  keyboardType='number-pad'
-                />
-              )}
-              name="tiempRiego"
-              rules={{ required: true }}
-              defaultValue=""
-            />
-            {errors.tiempRiego && <Text style={styles.error}>Campo requerido</Text>}
+            <View style={styles.inputContainer}>
+              <Controller
+                control={control}
+                render={({ onChange, onBlur, value }) => (
+                  <RegistroTextInput
+                    onBlur={onBlur}
+                    onChangeText={value => onChange(value)}
+                    value={value}
+                    keyboardType='number-pad'
+                  />
+                )}
+                name="tiempRiego"
+                rules={{ required: true }}
+                defaultValue=""
+              />
+              {errors.tiempRiego && <Text style={styles.error}>Campo requerido</Text>}
+              <Text style={styles.helpText}>horas</Text>
+            </View>
           </View>
         </View>
         <View style={styles.row}>
@@ -244,6 +256,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 15
   },
+  title: {
+    fontSize: 24
+  },
   row: {
     flex: 1,
     flexDirection: 'row',
@@ -252,7 +267,15 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 90,
-    padding: 10
+    padding: 10,
+    justifyContent: 'space-between'
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  helpText: {
+    marginLeft: 8
   },
   centeredView: {
     flex: 1,
@@ -262,11 +285,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: colorWhite,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: colorBlack,
     shadowOffset: {
       width: 0,
       height: 2
@@ -280,14 +303,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
   textStyle: {
-    color: "white",
+    color: colorWhite,
     fontWeight: "bold",
     textAlign: "center"
   },
@@ -295,7 +312,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
     fontSize: 20,
-    color: '#505050'
+    color: tintColorGr
   },
   modalTextBig: {
     marginBottom: 15,
@@ -307,13 +324,13 @@ const styles = StyleSheet.create({
     height: 100
   },
   error: {
-    color: '#d21111',
+    color: darkRed,
     fontSize: 10
   },
   datePicker: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#000',
+    borderBottomColor: colorBlack,
     height: 40,
     justifyContent: 'center'
   }
