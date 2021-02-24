@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text } from '../components/Themed';
 
@@ -9,12 +10,18 @@ import {
   StatusBar
 } from 'react-native';
 
+const itemBackColors = ['#ebf6f1', '#fff']
 
-const Item = ({ tipo, fecha }) => {
+const Item = ({ tipo, fecha, backColor }) => {
   const date = new Date(fecha)
   return (
-    <View style={styles.item}>
-      <Text style={styles.title}>{tipo} - {date.toLocaleDateString()}</Text>
+    <View style={[styles.item,{ backgroundColor: backColor}]}>
+      <Text style={styles.title}>{tipo}</Text>
+      <View style={styles.itemButtons}>
+        <Text>{date.toLocaleDateString()}</Text>
+        <Entypo size={28} name="edit" />
+        <Entypo size={28} name="circle-with-cross" />
+      </View>
     </View>
   )
 };
@@ -40,11 +47,11 @@ export default function RegistroList() {
       console.log(e)
     }
   }
-  const renderItem = ({ item }) => {
-    console.log('...');
-    console.log(item);
+
+  const renderItem = ({ item, index }) => {
+    const backColor = itemBackColors[index % itemBackColors.length]
     return (
-      <Item tipo={item.tipo} fecha={item.fecha}  />
+      <Item tipo={item.tipo} fecha={item.fecha} backColor={backColor}  />
     )};
 
   return (
@@ -53,6 +60,7 @@ export default function RegistroList() {
         data={registros}
         renderItem={renderItem}
         keyExtractor={item => item.huerta}
+        style={styles.listContainer}
       />
     </SafeAreaView>
   );
@@ -61,16 +69,37 @@ export default function RegistroList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: 'rgb(226, 227, 160)',
+    backgroundColor: '#fff'
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 2,
-    marginVertical: 8,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    marginVertical: 0,
     marginHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  itemButtons: {
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    width: 165,
+    justifyContent: 'space-between'
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
   },
+  listContainer: {
+    padding: 15,
+    backgroundColor: '#fff',
+
+  }
 });
