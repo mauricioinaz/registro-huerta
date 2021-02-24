@@ -22,6 +22,7 @@ import {
 
 const itemBackColors = [lightGreen, colorWhite]
 
+// Individual items on list
 const Item = ({ tipo, fecha, backColor, deleteItem }) => {
   const date = new Date(fecha)
   return (
@@ -48,21 +49,40 @@ export default function RegistroList() {
     }
     ,[])
 
+  // fetch data from phone storage
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@lista_registros')
       if(value !== null) {
-        // console.log(value)
-        // console.log(typeof(value))
         setRegistros(JSON.parse(value))
       } else {
-        console.log('VACIA')
+        // console.log('EMPTY')
       }
     } catch(e) {
       console.log(e)
     }
   }
 
+  //
+  // Deleting Items Logic
+  //
+  const deleteItemById = () => {
+    if (itemToDelete) {
+      const registrosFiltered = registros.filter(item => item.id !== itemToDelete)
+      setRegistros(registrosFiltered)
+      updateData(registrosFiltered)
+    } else {
+      // console.log('no element to delete')
+    }
+    setModalVisible(false)
+  }
+
+  const openDeletetingModal = (id : string) => {
+    setModalVisible(true)
+    setitemToDelete(id)
+  }
+
+  // Update phone registers upon item deletion
   const updateData = async newData => {
     try {
       const jsonValue = JSON.stringify(newData)
@@ -72,26 +92,7 @@ export default function RegistroList() {
     }
   }
 
-  const deleteItemById = () => {
-    if (itemToDelete) {
-      const registrosFiltered = registros.filter(item => item.id !== itemToDelete)
-      console.log(`itemToDelete ${itemToDelete}`)
-      console.log(`registros length ${registros.length}`)
-      console.log(`registrosFiltered length ${registrosFiltered.length}`)
-      setRegistros(registrosFiltered)
-      updateData(registrosFiltered)
-    } else {
-      console.log('NO HAY ELEMENTO PARA BORRAR')
-    }
-    // TODO: agregar spinner y esperar a que se borró
-    setModalVisible(false)
-  }
-
-  const openDeletetingModal = (id : string) => {
-    setModalVisible(true)
-    setitemToDelete(id)
-  }
-
+  // Flatlist Rendering function
   const renderItem = ({ item, index }) => {
     const backColor = itemBackColors[index % itemBackColors.length]
     return (

@@ -5,7 +5,7 @@ import {
   Platform,
   TouchableOpacity,
   Modal
-} from "react-native";;
+} from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ import {
 } from '../constants/Colors';
 
 type FormData = {
-  fecha: Date;  // TODO: actualizar a fecha
+  fecha: Date;
   huerta: string;
   variedad: string;
   superficie: string;
@@ -31,20 +31,19 @@ type FormData = {
   tipo: string;
   id: string;
 };
-
 type acceptedRegistros = { tipoRegistro: "Riego" | "Aplicacion" | "Cosecha" | "Huerta" ; }
-
 type RegistroFormTypes = {route: React.ReactNode, navigation: React.ReactNode}
 
-export default function RegistroForm({route, navigation} : RegistroFormTypes ) {
 
+export default function RegistroForm({route, navigation} : RegistroFormTypes ) {
+  // General Form
   const { tipoRegistro } : acceptedRegistros = route.params;
   const { control, handleSubmit, errors, reset } = useForm<FormData>();
 
-  //MODAL
+  // Modal
   const [modalVisible, setModalVisible] = React.useState(false);
 
-  // FECHA
+  // Date
   const [date, setDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
 
