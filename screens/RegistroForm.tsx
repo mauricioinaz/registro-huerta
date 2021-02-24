@@ -1,18 +1,19 @@
-import * as React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as React from 'react'
 import {
   StyleSheet,
   ScrollView,
   Platform,
   TouchableOpacity,
-  Pressable,
   Modal
-} from "react-native";
+} from "react-native";;
+import { Entypo } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useForm, Controller } from "react-hook-form";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text } from '../components/Themed';
 import RegistroTextInput from '../components/RegistroTextInput';
 import GreenButton from '../components/GreenButton';
+import { colorGreen } from '../constants/Colors';
 
 type FormData = {
   fecha: string;  // TODO: actualizar a fecha
@@ -74,20 +75,23 @@ export default function RegistroForm({route, navigation}) {
   return (
     <ScrollView>
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={modalVisible}
       onRequestClose={onEndRegistration}
     >
-      <View style={styles.modalView}>
-        <Text style={styles.modalText}>Registro Guardado</Text>
-        <Text style={styles.modalText}>Tu actividad se ha guardado correctamente</Text>
-        <Pressable
-          style={[styles.button, styles.buttonClose]}
-          onPress={onEndRegistration}
-        >
-          <Text style={styles.textStyle}>X</Text>
-        </Pressable>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Entypo size={120} name="save" color='#017225' />
+          <Text style={styles.modalTextBig}>Registro Guardado</Text>
+          <Text style={styles.modalText}>Tu actividad se ha guardado correctamente</Text>
+          <View style={styles.modalButtonContainer}>
+            <GreenButton
+              buttonText="FINALIZAR"
+              onPress={onEndRegistration}
+            />
+          </View>
+        </View>
       </View>
     </Modal>
       <View style={styles.container}>
@@ -254,7 +258,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    backgroundColor: 'rgba(1, 1, 1, 0.3)'
   },
   modalView: {
     margin: 20,
@@ -289,7 +293,18 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: 20,
+    color: '#505050'
+  },
+  modalTextBig: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
+  modalButtonContainer: {
+    height: 100
   },
   error: {
     color: '#d21111',
